@@ -1,1 +1,11 @@
-<p>home works!</p>
+<ng-sidebar-container>
+
+    <ng-sidebar [(opened)]="sidebarOpened">
+        <app-side-nav></app-side-nav>
+    </ng-sidebar>
+
+    <div class="container" ng-sidebar-content>
+        <button class="btn btn-primary" (click)="toggleSidebar()">Open</button>
+    </div>
+
+</ng-sidebar-container>
