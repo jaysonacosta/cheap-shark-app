@@ -1,11 +1,68 @@
 <ng-sidebar-container>
+  <ng-sidebar [(opened)]="sidebarOpened" mode="slide">
+    <app-side-nav></app-side-nav>
+  </ng-sidebar>
 
-    <ng-sidebar [(opened)]="sidebarOpened">
-        <app-side-nav></app-side-nav>
-    </ng-sidebar>
+  <div ng-sidebar-content>
+    <app-nav-bar></app-nav-bar>
+    <div class="container pt-3">
+      <div class="row mb-3">
+        <div class="col">
+          <h1>Best Deals!</h1>
+        </div>
+      </div>
 
-    <div class="container" ng-sidebar-content>
-        <button class="btn btn-primary" (click)="toggleSidebar()">Open</button>
+      <div class="row">
+        <ng-container *ngFor="let sale of onSale">
+          <div class="col-md-4 col-6 mb-4">
+            <div class="card" id="sales-card">
+              <img
+                src="{{ sale.thumbnail }}"
+                class="card-img-top"
+                alt="{{ sale.title }}"
+              />
+              <div class="card-body">
+                <div class="row mb-2">
+                  <div class="col">
+                    <h4 class="card-title m-0">{{ sale.title }}</h4>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <img
+                      src="{{ sale.store.banner }}"
+                      alt="{{ sale.store.storeName }}"
+                      height="30"
+                    />
+                  </div>
+                </div>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  Deal Rating: {{ sale.dealRating }}
+                </li>
+                <li class="list-group-item text-danger">
+                  Normal Price: ${{ sale.normalPrice }}
+                </li>
+                <li class="list-group-item text-success">
+                  Sale Price: ${{ sale.salePrice }}
+                </li>
+                <li class="list-group-item text-info">
+                  Savings: {{ sale.savings }}%
+                </li>
+              </ul>
+              <div class="card-body">
+                <a
+                  href="{{ cheapSharkLink }}{{ sale.dealId }}"
+                  class="card-link"
+                  >{{ sale.store.storeName }} link</a
+                >
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
     </div>
-
+    <button class="btn btn-primary" (click)="toggleSidebar()">Open</button>
+  </div>
 </ng-sidebar-container>

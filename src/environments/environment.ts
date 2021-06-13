@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiHost: 'https://www.cheapshark.com/api/1.0/',
+  cheapSharkLink: 'https://www.cheapshark.com/redirect?dealID=',
+  cheapSharkImageLink: 'https://www.cheapshark.com',
 };
 
 /*

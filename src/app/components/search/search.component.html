@@ -1,0 +1,167 @@
+<ng-sidebar-container>
+  <ng-sidebar [(opened)]="sidebarOpened" mode="slide">
+    <app-side-nav></app-side-nav>
+  </ng-sidebar>
+
+  <div ng-sidebar-content>
+    <app-nav-bar></app-nav-bar>
+    <div class="container pt-3">
+      <div class="row mb-3">
+        <div class="col">
+          <h2 class="m-0">Search</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h3>Filter</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="storeSelect">Select a Store</label>
+          <select
+            name="storeSelect"
+            class="form-control"
+            [(ngModel)]="searchCriteria.store"
+            #store="ngModel"
+          >
+            <option value="" selected>Select a Store</option>
+            <ng-container *ngFor="let store of stores">
+              <ng-container *ngIf="store.isActive">
+                <option value="{{ store.storeId }}">
+                  {{ store.storeName }}
+                </option>
+              </ng-container>
+            </ng-container>
+          </select>
+        </div>
+        <div class="col">
+          <label for="sortBy">Sort by</label>
+          <select
+            name="sortBy"
+            class="form-control"
+            [(ngModel)]="searchCriteria.filter"
+            #filter="ngModel"
+          >
+            <option value="" selected>Sort by</option>
+            <ng-container *ngFor="let filter of sortCriteria">
+              <option value="{{ filter }}">{{ filter }}</option>
+            </ng-container>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="minPrice">Min. Price</label>
+          <input
+            type="number"
+            class="form-control"
+            placeholder="$0.00"
+            min="0"
+            max="200"
+            [(ngModel)]="searchCriteria.minPrice"
+            #minPrice="ngModel"
+          />
+        </div>
+        <div class="col">
+          <label for="maxPrice">Max. Price</label>
+          <input
+            type="number"
+            class="form-control"
+            placeholder="$0.00"
+            min="0"
+            max="200"
+            [(ngModel)]="searchCriteria.maxPrice"
+            #maxPrice="ngModel"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="onSale">On Sale</label>
+          <input
+            class="ml-3"
+            type="checkbox"
+            name="onSale"
+            [(ngModel)]="searchCriteria.onSale"
+            #onSale="ngModel"
+          />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <label for="gameTitle">Game title</label>
+          <input
+            type="text"
+            class="form-control"
+            name="gameTitle"
+            placeholder="Game title"
+            [(ngModel)]="searchCriteria.gameTitle"
+            #gameTitle="ngModel"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary" (click)="submitSearch()">
+            Search
+          </button>
+        </div>
+      </div>
+      <hr />
+      <ng-container *ngIf="dealsFound">
+        <div class="row">
+          <ng-container *ngFor="let sale of dealsFound">
+            <div class="col-md-4 col-6 mb-4">
+              <div class="card" id="sales-card">
+                <img
+                  src="{{ sale.thumbnail }}"
+                  class="card-img-top"
+                  alt="{{ sale.title }}"
+                />
+                <div class="card-body">
+                  <div class="row mb-2">
+                    <div class="col">
+                      <h4 class="card-title m-0">{{ sale.title }}</h4>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <img
+                        src="{{ sale.store.banner }}"
+                        alt="{{ sale.store.storeName }}"
+                        height="30"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    Deal Rating: {{ sale.dealRating }}
+                  </li>
+                  <li class="list-group-item text-danger">
+                    Normal Price: ${{ sale.normalPrice }}
+                  </li>
+                  <li class="list-group-item text-success">
+                    Sale Price: ${{ sale.salePrice }}
+                  </li>
+                  <li class="list-group-item text-info">
+                    Savings: {{ sale.savings }}%
+                  </li>
+                </ul>
+                <div class="card-body">
+                  <a
+                    href="{{ cheapSharkLink }}{{ sale.dealId }}"
+                    class="card-link"
+                    >{{ sale.store.storeName }} link</a
+                  >
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+    <button class="btn btn-primary" (click)="toggleSidebar()">Open</button>
+  </div>
+</ng-sidebar-container>
