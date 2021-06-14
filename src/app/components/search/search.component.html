@@ -4,7 +4,7 @@
   </ng-sidebar>
 
   <div ng-sidebar-content>
-    <app-nav-bar></app-nav-bar>
+    <app-nav-bar (toggle)="toggleSidebar($event)"></app-nav-bar>
     <div class="container pt-3">
       <div class="row mb-3">
         <div class="col">
@@ -162,6 +162,5 @@
         </div>
       </ng-container>
     </div>
-    <button class="btn btn-primary" (click)="toggleSidebar()">Open</button>
   </div>
 </ng-sidebar-container>

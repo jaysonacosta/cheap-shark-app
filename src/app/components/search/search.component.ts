@@ -135,7 +135,7 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  toggleSidebar(): void {
-    this.sidebarOpened = !this.sidebarOpened;
+  toggleSidebar(event: boolean): void {
+    this.sidebarOpened = event;
   }
 }
